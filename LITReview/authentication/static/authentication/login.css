@@ -1,0 +1,14 @@
+.login{
+    display: flex;
+}
+.insc, .log{
+    width: 50%;
+    text-align: center;
+}
+.text{
+    font-size: 25px;
+}
+input{
+    height: 30px;
+    width: 300px;
+}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'blog/createReview.css' %}" />
+{% endblock css %}
+{% block content %}
+<div class="ticket">
+    <p>Creer une critique</p>
+    <form method="post" class="formticket" enctype="multipart/form-data">
+        <div class="divticket">
+            {% if ticket %}
+                <p>Vous etes en train de poster en réponse à</p>
+                <div class="ticketAffiche">
+                    {% if ticket.user == request.user%}
+                        <p class="qui">Vous avez publié un ticket</p>
+                    {% else %}
+                        <p class="qui">{{ticket.user}} a demandé une critique</p>
+                    {% endif %}
+                    <p class="quand">{{ticket.time_created}}</p>
+                    <p class="titre">{{ticket.title}}</p>
+                    <p class="desc">{{ticket.description}}</p>
+                    {% if ticket.image %}
+                        <img src="{{ ticket.image.url }}">
+                    {% endif %}
+                </div>
+            {% else %}
+                <p>Livre / Article</p>
+                <div class="formdiv">
+                    {{ formTicket.as_p }}
+                </div>
+            {% endif %}
+        </div>
+        <div class="divreview">
+            <p>Critique</p>
+            <div class="formdiv">
+                {{ formReview.as_p }}
+            </div>
+        </div>
+        {% csrf_token %}
+        <button type="submit" >Envoyer</button>
+    </form>
+</div>
+{% endblock content %}

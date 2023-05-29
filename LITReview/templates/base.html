@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>LITReview</title>
+    </head>
+    {% block css %}{% endblock css %}
+    <body>
+        <div class="menutop">
+            <h1>LITReview</h1>
+            {% if user.is_authenticated %}
+            <div class="divmenu">
+                <div class="menu flux" onclick="location.href='{% url 'home' %}'">
+                    <p>Flux</p>
+                </div>
+                <div class="menu posts" onclick="location.href='{% url 'posts' %}'">
+                    <p>Posts</p>
+                </div>
+                <div class="menu abo" onclick="location.href='{% url 'abonements' %}'">
+                    <p>Abonements</p>
+                </div>
+                <div class="menu logout" onclick="location.href='{% url 'logout' %}'">
+                    <p>Se déconnecter</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% block content %}{% endblock content %}
+        <!-- {% if user.is_authenticated %}
+            <p>Vous êtes connecté en tant que {{ request.user }}. <a href="{% url 'logout' %}">Se déconnecter</a></p>
+        {% endif %} -->
+    </body>
+</html>
+
+<style>
+    .menutop{
+        position: relative;
+        display: flex;
+        text-align: center;
+        border: solid;
+        height: 50px;
+    }
+    h1{
+        margin: auto;
+    }
+    .divmenu{
+        position: absolute;
+        display: flex;
+        cursor: pointer;
+        width: 325px;
+        margin-left: calc(100% - 315px);
+        margin-right: 0;
+    }
+    .menu{
+        margin-right: 20px;
+    }
+</style>

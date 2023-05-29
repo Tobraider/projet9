@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'authentication/signup.css' %}" />
+{% endblock css %}
+{% block content %}
+    <div>
+        <h2>Inscription</h2>
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit" name="return" onclick="location.href='{% url 'login' %}'">Retour</button>
+            <button type="submit" name="singup">S’inscrire</button>
+        </form>
+    </div>
+{% endblock content %}

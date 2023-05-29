@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'authentication/login.css' %}" />
+{% endblock css %}
+
+{% block content %}
+    <div class="login">
+        <div class="insc">
+            <p class="text">Inscrivez-vous maintenant</p>
+            <button class="inscription" type="submit" onclick="location.href='{% url 'signup' %}'">S'inscrire</button>
+        </div>
+        <div class="log">
+            <p class="text">Connectez-vous</p>
+            <form method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit" >Se connecter</button>
+            </form>
+        </div>
+    </div>
+    <!-- <p>Pas encore membre ? <a href="{% url 'signup' %}">Inscrivez-vous maintenant !</a></p> -->
+{% endblock content %}

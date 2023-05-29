@@ -1,0 +1,74 @@
+.menuticket{
+    margin-top: 10px;
+    text-align: center;
+}
+.divflux{
+    margin-top: 50px;
+    text-align: center;
+}
+.review, .ticket, .ticketreview{
+    border: solid 1px;
+    margin-bottom: 20px;
+}
+.review, .ticket{
+    text-align: left;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 400px 200px;
+}
+.qui{
+    margin-left: 5px;
+    grid-column: 1;
+    grid-row: 1;
+}
+.quand{
+    margin-right: 20px;
+    font-size: 11px;
+    text-align: right;
+    grid-column: 2;
+    grid-row: 1;
+}
+.titre, .titrereview{
+    margin-left: 5px;
+    grid-column: 1/3;
+    grid-row: 2;
+}
+.titrereview{
+    display: flex;
+    height: 40px;
+}
+.titrereview p{
+    margin-top: 0px;
+    font-size: 30px;
+}
+.note{
+    margin-left: 10px;
+    margin-top: 7px;
+}
+.desc{
+    margin-left: 5px;
+    grid-column: 1/3;
+    grid-row: 3;
+}
+.ticketreview{
+    grid-column: 1/3;
+    grid-row: 4;
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: 375px 175px;
+}
+img{
+    margin-bottom: 5px;
+    grid-row: 4;
+    margin-left: 5px;
+    max-height: 200px;
+    max-width: 400px;
+}
+button{
+    grid-column: 2;
+    grid-row: 5;
+}

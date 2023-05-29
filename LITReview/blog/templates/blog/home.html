@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'blog/home.css' %}" />
+{% endblock css %}
+{% block content %}
+{% load blog_extras %}
+<div class="menuticket">
+    <button class="bdemande" onclick="location.href='{% url 'createTicket' %}'">Demander une critique</button>
+    <button class="bcreer" onclick="location.href='{% url 'createReviewsTickets' %}'">Creer une critique</button>
+</div>
+<div class="divflux">
+    {% for instance in tickets_and_reviews %}
+        {% if instance|model_type == 'Ticket' %}
+        <div class="ticket">
+            {% if instance.user == request.user%}
+                <p class="qui">Vous avez publié un ticket</p>
+            {% else %}
+                <p class="qui">{{instance.user}} a demandé une critique</p>
+            {% endif %}
+            <p class="quand">{{instance.time_created}}</p>
+            <p class="titre">{{instance.title}}</p>
+            <p class="desc">{{instance.description}}</p>
+            {% if instance.image %}
+                <img src="{{ instance.image.url }}">
+            {% endif %}
+            {% if instance|ticket_on == 0 %}
+                <button onclick="location.href='{% url 'newReviewsTickets' instance.pk %}'">Créer une cirtique</button>
+            {% endif %}
+        </div>
+        {% elif instance|model_type == 'Review' %}
+        <div class="review">
+            {% if instance.user == request.user%}
+                <p class="qui">Vous avez publié une critique</p>
+            {% else %}
+                <p class="qui">{{instance.user}} a publié une critique</p>
+            {% endif %}
+            <p class="quand">{{instance.ticket.time_created}}</p>
+            <div class="titrereview">
+                <p>{{instance.headline}} - </p>
+                <div class="note">
+                {% for i in 5|make_range %}
+                    {% if i < instance.rating %}
+                        <svg fill="#000000" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.486 473.486" xml:space="preserve">
+                        <polygon points="473.486,182.079 310.615,157.952 235.904,11.23 162.628,158.675 0,184.389 117.584,299.641 91.786,462.257 237.732,386.042 384.416,460.829 357.032,298.473 "/>
+                        </svg>
+                    {% else %}
+                        <svg fill="#ffffff" height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.49 473.49" xml:space="preserve" stroke="#ffffff" stroke-width="0.0047348600000000005">
+
+                        <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                        
+                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#000000" stroke-width="4.73486"> <polygon points="473.486,182.079 310.615,157.952 235.904,11.23 162.628,158.675 0,184.389 117.584,299.641 91.786,462.257 237.732,386.042 384.416,460.829 357.032,298.473 "/> </g>
+                        
+                        <g id="SVGRepo_iconCarrier"> <polygon points="473.486,182.079 310.615,157.952 235.904,11.23 162.628,158.675 0,184.389 117.584,299.641 91.786,462.257 237.732,386.042 384.416,460.829 357.032,298.473 "/> </g>
+                        
+                        </svg>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            <p class="desc">{{instance.body}}</p>
+            <div class="ticketreview">
+                {% if instance.ticket.user == request.user%}
+                    <p class="qui">Vous avez publié un ticket</p>
+                {% else %}
+                    <p class="qui">{{instance.ticket.user}} a demandé une critique</p>
+                {% endif %}
+                <p class="quand">{{instance.ticket.time_created}}</p>
+                <p class="titre">{{instance.ticket.title}}</p>
+                <p class="desc">{{instance.ticket.description}}</p>
+                {% if instance.ticket.image %}
+                    <img src="{{ instance.ticket.image.url }}">
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock content %}

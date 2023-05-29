@@ -1,0 +1,51 @@
+.search, .abonements, .abonne{
+    text-align: center;
+}
+.formsearch{
+    margin-left: calc(50% - 320px);
+    display: flex;
+}
+input{
+    text-align: center;
+    width: 600px;
+    height: 30px;
+}
+button{
+    margin-top: 16px;
+    height: 30px;
+}
+.nomabo{
+    margin-left: calc(50% - 320px);
+    width: 660px;
+    height: 30px;
+    text-align: left;
+    border: solid 1px;
+}
+.pabo{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.nomabonement{
+    display: flex;
+    margin-left: calc(50% - 320px);
+    width: 580px;
+    height: 30px;
+    text-align: left;
+    border: solid 1px;
+}
+.pnomabonement{
+    margin-left: 20px;
+    margin-top: 5px;
+}
+.divabonement{
+    display: flex;
+    height: 32px;
+}
+.buttonabonement{
+    margin-top: 0px;
+    height: 32px;
+}
+.formabonement{
+    margin-left: 0px;
+    height: 32px;
+}

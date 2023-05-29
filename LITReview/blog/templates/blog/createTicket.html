@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block css %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'blog/createTicket.css' %}" />
+{% endblock css %}
+{% block content %}
+<div class="ticket">
+    <p>Creer un ticket</p>
+    <form method="post" class="formticket" enctype="multipart/form-data">
+        <div class="formdiv">
+            {% if form %}
+                {{ form.as_p }}
+            {% else %}
+                {{formtext.as_p}}
+                <div class="divimg">
+                    <p>Image actuelle</p>
+                    <img src="{{ticket.image.url}}">
+                    {{formimg.as_p}}
+                </div>
+            {% endif %}
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="envoie">Envoyer</button>
+    </form>
+</div>
+{% endblock content %}

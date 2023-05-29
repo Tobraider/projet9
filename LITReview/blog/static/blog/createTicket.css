@@ -1,0 +1,28 @@
+.ticket{
+    /* display: flex; */
+    text-align: center;
+}
+.formticket{
+    margin-left: 60px;
+    text-align: left;
+}
+/* input{
+    width: 100%;
+} */
+label{
+    grid-row: 1;
+}
+.formdiv p{
+    display: grid;
+    grid-template-columns: 90%;
+}
+img{
+    margin-left: 5px;
+    max-height: 200px;
+    max-width: 400px;
+}
+#id_efface{
+    margin-top: -15px;
+    margin-left: 125px;
+    width: 20px;
+}
