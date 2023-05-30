@@ -27,8 +27,7 @@ Dans un terminal
         pip install -r ../requirements.txt
 
         python manage.py runserver
-        
-        `
+
     
     Linux:`
 
@@ -39,5 +38,3 @@ Dans un terminal
         pip install -r ../requirements.txt
 
         python manage.py runserver
-
-        `
