@@ -19,13 +19,19 @@ Dans un terminal
 2. Executez les commandes suivants
 
     Windows:
-        `python -m venv env`
-        `.\env\Scripts\activate`
-        `pip install -r ../requirements.txt`
-        `python manage.py runserver`
+        `python -m venv env
+
+        .\env\Scripts\activate
+
+        pip install -r ../requirements.txt
+
+        python manage.py runserver`
     
     Linux:
-        `python3 -m venv env`
-        `source env/bin/activate`
-        `pip install -r requirements.txt`
-        `python manage.py runserver`
+        `python3 -m venv env
+
+        source env/bin/activate
+
+        pip install -r ../requirements.txt
+        
+        python manage.py runserver`
