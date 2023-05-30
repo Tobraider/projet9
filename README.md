@@ -5,6 +5,10 @@ On peut y demander une review ou en creer une.
 Chaque utilisateur doit avoir un compte qu'il peut creer pour pouvoir avoir acces au site
 Il peut suivre differents utilisateurs, ceci permet de voir les reviews de ces dernier ainsi que leurs demande
 
+Lors de la creation de compte (via le site directement) pour le mot de passe il faut suivre ces deux regles :
+ - le mot de passe ne doit pas etre que des chiffres
+ - le mot de passe doit faire au moins 8 caractères
+
 Pour mettre en place cette application il faut faire les etapes suivantes:
 
 Dans un terminal
