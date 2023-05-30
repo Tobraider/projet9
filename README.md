@@ -19,6 +19,7 @@ Dans un terminal
 2. Executez les commandes suivants
 
     Windows:`
+
         python -m venv env
 
         .\env\Scripts\activate
@@ -26,9 +27,11 @@ Dans un terminal
         pip install -r ../requirements.txt
 
         python manage.py runserver
+        
         `
     
     Linux:`
+
         python3 -m venv env
 
         source env/bin/activate
@@ -36,4 +39,5 @@ Dans un terminal
         pip install -r ../requirements.txt
 
         python manage.py runserver
+
         `
