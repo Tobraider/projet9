@@ -18,7 +18,7 @@ Dans un terminal
 
 2. Executez les commandes suivants
 
-    Windows:`
+    Windows:
 
         python -m venv env
 
@@ -29,7 +29,7 @@ Dans un terminal
         python manage.py runserver
 
     
-    Linux:`
+    Linux:
 
         python3 -m venv env
 
