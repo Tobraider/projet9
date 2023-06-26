@@ -16,14 +16,19 @@ User = get_user_model()
 # Create your views here.
 @login_required
 def home(request):
+    # recupere tout les user qu'il suit
     follows = UserFollows.objects.filter(user=request.user)
+    # fait un array des user suivis
     userfollows = []
     for userfollow in follows:
         userfollows.append(userfollow.followed_user)
+    # recupere les tickets des user suivie et les siens
     tickets = models.Ticket.objects.filter(Q(user=request.user) | Q(user__in=userfollows))
+    # recupere toute les reviews que le user a poster, ceux des user suivie et les reponses a ses tickets
     reviews = models.Review.objects.filter(Q(user=request.user) |
                                            Q(user__in=userfollows) |
                                            Q(ticket__user=request.user))
+    # trie selon la date
     tickets_and_reviews = sorted(
         chain(tickets, reviews),
         key=lambda instance: instance.time_created,
@@ -46,10 +51,12 @@ def unfollow(request, id):
 def abonement(request):
     message = ""
     form = forms.SearchForm()
+    # si post
     if request.method == 'POST':
         form = forms.SearchForm(request.POST)
         if form.is_valid():
             try:
+                # recupere le user mais ne peut pas se suivre
                 user = User.objects.exclude(pk=request.user.pk).get(username=form.cleaned_data["usernameFollows"])
             except User.DoesNotExist:
                 message = "{} n'existe pas".format(form.cleaned_data["usernameFollows"])
@@ -58,14 +65,17 @@ def abonement(request):
                 form.instance.followed_user = user
                 try:
                     form.save()
+                # erreur si suivie deja existant car ne peux exister qu'une seul fois
                 except IntegrityError:
                     message = "vous suivez deja {}".format(form.cleaned_data["usernameFollows"])
                 else:
                     message = "vous suivez l'utilisateur {}".format(user)
+    # recupere ses follows
     try:
         follows = UserFollows.objects.filter(user=request.user)
     except UserFollows.DoesNotExist:
         follows = None
+    # et les gens qu'il le suive
     try:
         followed_by = UserFollows.objects.filter(followed_user=request.user)
     except UserFollows.DoesNotExist:
@@ -86,6 +96,7 @@ def createTicket(request):
         form = forms.ticketForm(request.POST, request.FILES)
         if form.is_valid():
             ticket = form.save(commit=False)
+            # ajoute le user
             ticket.user = request.user
             ticket.save()
             return redirect('home')
@@ -101,12 +112,15 @@ def createNewReviews(request):
         formReview = forms.reviewForm(request.POST)
         if all([formTicket.is_valid() and formReview.is_valid()]):
             ticket = formTicket.save(commit=False)
+            # ajout du user
             ticket.user = request.user
             print(formReview.cleaned_data["rating"])
             ticket.save()
             print(ticket)
             review = formReview.save(commit=False)
+            # ajout du user
             review.user = request.user
+            # ajout du ticket
             review.ticket = ticket
             review.save()
             return redirect('home')
@@ -121,7 +135,9 @@ def NewReviews(request, idticket):
         formReview = forms.reviewForm(request.POST)
         if formReview.is_valid():
             review = formReview.save(commit=False)
+            # ajout du user
             review.user = request.user
+            # ajout du ticket
             review.ticket = ticketObj
             review.save()
             return redirect('home')
@@ -130,8 +146,11 @@ def NewReviews(request, idticket):
 
 @login_required
 def posts(request):
+    # recupere les tickets du user
     tickets = models.Ticket.objects.filter(user=request.user)
+    # recupere les reviews du user
     reviews = models.Review.objects.filter(user=request.user)
+    # tri selon la date
     tickets_and_reviews = sorted(
         chain(tickets, reviews),
         key=lambda instance: instance.time_created,
@@ -144,8 +163,10 @@ def posts(request):
 def changeTicket(request, idticket):
     ticket = models.Ticket.objects.get(pk=idticket)
     if request.method == 'POST':
+        # si le ticket a une image il y a 2 forms
         if ticket.image:
             formTicket = forms.ticketForm(request.POST, instance=ticket)
+            # form uniquement pour l'image
             formImg = forms.imgTicketForm(request.POST, request.FILES)
             if all([formTicket.is_valid(), formImg.is_valid()]):
                 ticket = formTicket.save(commit=False)
@@ -159,6 +180,7 @@ def changeTicket(request, idticket):
             formTicket.save()
         return redirect('posts')
     if ticket.image:
+        # besoin de 2 forms pour simplifier la logique et le css
         formText = forms.textTicketForm(instance=ticket)
         formImg = forms.imgTicketForm()
         return render(request,

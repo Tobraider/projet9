@@ -57,7 +57,7 @@
             </div>
             <p class="desc">{{instance.body}}</p>
             <div class="ticketreview">
-                {% if instance.user == request.user%}
+                {% if instance.ticket.user == request.user%}
                     <p class="qui">Vous avez publié un ticket</p>
                 {% else %}
                     <p class="qui">{{instance.ticket.user}} a demandé une critique</p>
